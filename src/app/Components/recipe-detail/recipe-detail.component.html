@@ -1,0 +1,18 @@
+<md-card>
+  <h2>{{ recipe.name }}</h2>
+  <md-card-content>
+    <h3>Ingredients</h3>
+    <ul *ngFor="let ingredient of recipe.ingredients">
+      <li>{{ ingredient }}</li>
+    </ul>
+    <div>
+      <h3>Directions</h3>
+      {{ recipe.direction }}
+    </div>
+  <button md-icon-button class="close" [routerLink]="['/']"><md-icon>close</md-icon></button>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button>FAVORITE</button>
+    <button md-button>SHARE</button>
+  </md-card-actions>
+</md-card>

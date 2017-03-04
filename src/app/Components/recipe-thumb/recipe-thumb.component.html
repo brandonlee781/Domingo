@@ -1,0 +1,24 @@
+<md-card
+  [routerLink]="['/recipe', recipe.id]"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+  fxLayoutWrap="nowrap">
+  <md-card-header>
+    <md-card-title>{{ recipe.name }}</md-card-title>
+    <md-card-subtitle>{{ recipe.ingredients.length }} ingredients</md-card-subtitle>
+  </md-card-header>
+  <button md-icon-button [mdMenuTriggerFor]="menu" (click)="openMenu($event)">
+    <md-icon>more_vert</md-icon>
+  </button>
+</md-card>
+
+<md-menu #menu="mdMenu">
+  <button md-menu-item [routerLink]="['/recipe', recipe.id]">
+    <md-icon>info</md-icon>
+    <span>Details</span>
+  </button>
+  <button md-menu-item>
+    <md-icon>delete</md-icon>
+    <span>Delete</span>
+  </button>
+</md-menu>

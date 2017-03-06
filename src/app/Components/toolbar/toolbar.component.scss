@@ -1,7 +1,22 @@
 .brand {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .fill-remaining-space {
-  flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+.searchbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-sizing: border-box;
+    z-index: 10;
+    width: 100%;
+    height: 56px;
+    padding: 0 8px;
+    background: white;
+    md-input-container {
+        color: black;
+    }
 }

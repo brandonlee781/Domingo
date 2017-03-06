@@ -1,8 +1,21 @@
 <md-toolbar color="primary">
-  <span class="brand" [routerLink]="['/']">Domingo</span>
+    <span class="brand" [routerLink]="['/']">Domingo</span>
 
-  <!-- This fills the remaining space of the current row -->
-  <span class="fill-remaining-space"></span>
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
 
-  <button md-icon-button><md-icon>search</md-icon></button>
+    <button md-icon-button (click)="toggleSearchBar()"><md-icon>search</md-icon></button>
+    <div class="searchbar" *ngIf="searching" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="8px">
+        <button md-icon-button (click)="toggleSearchBar()"><md-icon color="primary">cancel</md-icon></button>
+
+        <md-input-container fxFlex="1 1 auto" floatPlaceholder="never">
+            <input mdInput placeholder="Search" [mdAutocomplete]="searchbar" [(formControl)]="searchCtrl">
+        </md-input-container>
+
+        <md-autocomplete #searchbar="mdAutocomplete" [displayWith]="onSelectConvertValueToInputFn">
+            <md-option *ngFor="let recipe of recipesArray" [value]="recipe">
+                {{ recipe }}
+            </md-option>
+        </md-autocomplete>
+    </div>
 </md-toolbar>

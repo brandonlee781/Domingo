@@ -1,0 +1,31 @@
+<md-card>
+    <md-card-header>
+        <md-card-title>{{ title }}</md-card-title>
+    </md-card-header>
+    <md-card-content>
+        <md-input-container class="full-width">
+            <input mdInput type="text" placeholder="Recipe Name" [(ngModel)]="recipeName" />
+        </md-input-container>
+        <md-input-container class="full-width">
+            <textarea mdInput placeholder="Ingredients (seperate ingredients on new lines)" rows="4" [(ngModel)]="ingredients"></textarea>
+        </md-input-container>
+        <md-input-container class="full-width">
+            <textarea mdInput placeholder="Directions" rows="4" [(ngModel)]="directions"></textarea>
+        </md-input-container>
+        <div fxLayout="row">
+            <md-input-container fxFlex="33%">
+                <input mdInput type="number" placeholder="Serving Size" [(ngModel)]="serving">
+            </md-input-container>
+            <md-input-container fxFlex="33%">
+                <input mdInput type="number" placeholder="Prep Time" [(ngModel)]="prepTime">
+            </md-input-container>
+            <md-input-container fxFlex="33%">
+                <input mdInput type="number" placeholder="Cook Time" [(ngModel)]="cookTime">
+            </md-input-container>
+        </div>
+    </md-card-content>
+    <md-card-actions>
+        <button md-button (click)="createNew()">Save</button>
+        <button md-button [routerLink]="['']">Cancel</button>
+    </md-card-actions>
+</md-card>

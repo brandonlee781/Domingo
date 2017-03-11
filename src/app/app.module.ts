@@ -5,11 +5,20 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AngularFireModule } from 'angularfire2';
 import 'hammerjs';
 
 import { routing } from './app.routes';
 
 import { RecipeService } from './Services/recipe.service';
+
+export const firebaseConfig = {
+    apiKey: "AIzaSyC4P9384NMz23zahQbuuQq1Q87R2rKRfBo",
+    authDomain: "domingo-8eb88.firebaseapp.com",
+    databaseURL: "https://domingo-8eb88.firebaseio.com",
+    storageBucket: "domingo-8eb88.appspot.com",
+    messagingSenderId: "743458710516"
+  };
 
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './Components/toolbar/toolbar.component';
@@ -36,7 +45,8 @@ import { EditRecipeComponent } from './Components/edit-recipe/edit-recipe.compon
     HttpModule,
     routing,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent]

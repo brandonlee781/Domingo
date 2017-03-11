@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../../Services/recipe.service';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'dmg-recipe-list',
@@ -7,12 +8,13 @@ import { RecipeService } from '../../Services/recipe.service';
   styleUrls: ['./recipe-list.component.scss']
 })
 export class RecipeListComponent implements OnInit {
-  recipes = [];
+  recipes: FirebaseListObservable<any[]>;
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private af: AngularFire) {
+    this.recipes = af.database.list('/recipes');
+  }
 
   ngOnInit() {
-    this.recipes = this.recipeService.getRecipes();
   }
 
 }

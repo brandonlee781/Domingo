@@ -1,23 +1,16 @@
 import { Injectable } from '@angular/core';
-
-let data = require('./../../assets/mock-data.js');
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Injectable()
 export class RecipeService {
-
-  constructor() { }
+  constructor(public af: AngularFire) {}
 
   getRecipes() {
-    return data.default;
+    return this.af.database.list('/recipes');
   }
 
   getRecipeById(id: string) {
-    let filtered = data.default.filter(item => {
-      if(item.id === id) {
-        return item;
-      }
-    })
-    return filtered[0];
+    return this.af.database.object(`/recipes/${id}`);
   }
 
 }

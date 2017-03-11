@@ -13,7 +13,7 @@
         </md-input-container>
 
         <md-autocomplete #searchbar="mdAutocomplete" [displayWith]="onSelectConvertValueToInputFn">
-            <md-option *ngFor="let recipe of recipesArray" [value]="recipe">
+            <md-option *ngFor="let recipe of filteredRecipes | async" [value]="recipe">
                 {{ recipe }}
             </md-option>
         </md-autocomplete>

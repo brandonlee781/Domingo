@@ -16,7 +16,8 @@ export class RecipeThumbComponent implements OnInit {
   }
 
   openMenu(e) {
-    e.stopPropagation()
+    e.stopPropagation();
+    console.log(this.recipe);
     this.trigger.openMenu();
   }
 

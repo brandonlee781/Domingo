@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
-
-import { RecipeService } from '../../Services/recipe.service';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
 @Component({
   selector: 'dmg-recipe-detail',
@@ -13,13 +12,13 @@ export class RecipeDetailComponent implements OnInit {
   private sub:any;
   public recipe;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute) { }
-
-  ngOnInit() {
+  constructor(private route: ActivatedRoute, private af: AngularFire) {
     this.sub = this.route.params.subscribe(params => {
       let id = params['id'];
-
-      this.recipe = this.recipeService.getRecipeById(id);
+      this.recipe = af.database.object(`/recipes/${id}`);
     });
+  }
+
+  ngOnInit() {
   }
 }

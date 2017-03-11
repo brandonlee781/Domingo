@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute } from '@angular/router';
-
-import { RecipeService } from '../../Services/recipe.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
 const uuidv4 = require('uuid/v4');
 
@@ -15,39 +14,47 @@ export class EditRecipeComponent implements OnInit {
   private sub: any;
   private id: any;
 
-  public recipeName: string;
-  public ingredients: string;
-  public directions: string;
-  public serving: number;
-  public prepTime: number;
-  public cookTime: number;
+  public recipeName;
+  public ingredients;
+  public directions;
+  public serving;
+  public prepTime;
+  public cookTime;
   title: string = 'Create a new recipe';
 
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute) { }
-
-  ngOnInit() {
+  constructor(private route: ActivatedRoute, private af: AngularFire, private router: Router) {
     this.sub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.id = params['id'];
-        let recipe = this.recipeService.getRecipeById(this.id);
+        af.database.object(`/recipes/${this.id}`, { preserveSnapshot: true })
+          .subscribe( item => {
+            var recipe = item.val();
+            this.title = 'Edit a recipe';
+            this.recipeName = recipe.name;
+            this.ingredients = recipe.ingredients.join('\n');
+            this.directions = recipe.direction;
+            this.serving = recipe.serves;
+            this.prepTime = recipe.time.prep;
+            this.cookTime = recipe.time.cook;
+          })
 
-        this.title = 'Edit a recipe';
-        this.recipeName = recipe.name;
-        this.ingredients = recipe.ingredients.join('\n');
-        this.directions = recipe.direction;
-        this.serving = recipe.serves;
-        this.prepTime = recipe.time.prep;
-        this.cookTime = recipe.time.cook;
+        
 
-      }
+      };
+      
+    })
+  }
+
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      
       
     });
   }
 
   createNew() {
     var newObject = {
-      id: '',
       name: this.recipeName,
       ingredients: this.ingredients.split('\n'),
       direction: this.directions,
@@ -58,11 +65,11 @@ export class EditRecipeComponent implements OnInit {
       }
     };
     if (this.id) {
-      newObject.id = this.id;
+      this.af.database.object(`/recipes/${this.id}`).set(newObject);
     } else {
-      newObject.id = uuidv4();
+      this.af.database.list('/recipes').push(newObject);
     }
-    console.log(newObject);
+    this.router.navigate(['/recipe', this.id]);
   }
 
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import 'rxjs/add/operator/startWith';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { RecipeService } from '../../Services/recipe.service';
 
 @Component({
@@ -14,14 +15,12 @@ export class ToolbarComponent implements OnInit {
   searching: boolean = false;
   searchTerm: string = '';
   filteredRecipes: any;
-  recipesArray: string[] = [];
+  recipes: FirebaseListObservable<any[]>;
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, private af: AngularFire) {
     this.searchCtrl = new FormControl();
-    var recipes = this.recipeService.getRecipes();
-    recipes.forEach((item) => {
-      this.recipesArray.push(item.name);
-    });
+    this.recipes = this.recipeService.getRecipes();
+    // this.recipeService.getRecipes().subscribe( values => {this.recipes = values} );
     this.filteredRecipes = this.searchCtrl.valueChanges
         .startWith(null)
         .map(name => this.filterRecipes(name));
@@ -35,7 +34,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   filterRecipes(val: string) {
-    return val ? this.recipesArray.filter((s) => new RegExp(val, 'gi').test(s)) : this.recipesArray;
+    return val ? this.recipes.filter((s) => new RegExp(val, 'gi').test(s)) : this.recipes;
   }
 
 }

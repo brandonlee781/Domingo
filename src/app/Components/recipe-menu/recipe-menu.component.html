@@ -1,0 +1,10 @@
+<div>
+    <button md-menu-item [routerLink]="['/edit', id]">
+        <md-icon>edit</md-icon>
+        <span>Edit</span>
+    </button>
+    <button md-menu-item (click)="deleteRecipe()">
+        <md-icon>delete</md-icon>
+        <span>Delete</span>
+    </button>
+</div>

@@ -12,6 +12,7 @@ import { routing } from './app.routes';
 
 import { RecipeService } from './Services/recipe.service';
 import { ListStateService } from './Services/list-state.service';
+import { DialogsService } from './Services/dialogs.service';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyC4P9384NMz23zahQbuuQq1Q87R2rKRfBo",
@@ -27,7 +28,9 @@ import { RecipeListComponent } from './Components/recipe-list/recipe-list.compon
 import { RecipeThumbComponent } from './Components/recipe-thumb/recipe-thumb.component';
 import { RecipeDetailComponent } from './Components/recipe-detail/recipe-detail.component';
 import { FabComponent } from './Components/fab/fab.component';
-import { EditRecipeComponent } from './Components/edit-recipe/edit-recipe.component';
+import { RecipeEditComponent } from './Components/recipe-edit/recipe-edit.component';
+import { RecipeMenuComponent } from './Components/recipe-menu/recipe-menu.component';
+import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { EditRecipeComponent } from './Components/edit-recipe/edit-recipe.compon
     RecipeThumbComponent,
     RecipeDetailComponent,
     FabComponent,
-    EditRecipeComponent
+    RecipeEditComponent,
+    RecipeMenuComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +56,12 @@ import { EditRecipeComponent } from './Components/edit-recipe/edit-recipe.compon
   ],
   providers: [
     RecipeService,
-    ListStateService
+    ListStateService,
+    DialogsService
     ],
+  entryComponents: [
+    ConfirmDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

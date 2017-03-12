@@ -12,6 +12,7 @@ import { Recipe } from '../../Models/recipe.model';
 export class RecipeListComponent implements OnInit {
   recipes: FirebaseListObservable<Recipe[]>;
   isCardOpen: Array<Boolean> = [];
+  isCardEdit: Array<Boolean> = [];
 
   constructor(private recipeService: RecipeService, private listStateService: ListStateService) {}
 

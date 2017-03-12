@@ -1,24 +1,17 @@
-<md-card [routerLink]="['/recipe', recipe.$key]" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutWrap="nowrap">
-    <md-card-header>
-        <md-card-title>{{ recipe?.name }}</md-card-title>
-        <md-card-subtitle>{{ recipe?.ingredients.length }} ingredients</md-card-subtitle>
-    </md-card-header>
+<md-card (click)="toggleCard()" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutWrap="nowrap">
+    <span class="recipe-name">{{ recipe?.name }}</span>
     <button md-icon-button [mdMenuTriggerFor]="menu" (click)="openMenu($event)">
-    <md-icon>more_vert</md-icon>
-  </button>
+      <md-icon>more_vert</md-icon>
+    </button>
 </md-card>
 
 <md-menu #menu="mdMenu">
-    <button md-menu-item [routerLink]="['/recipe', recipe.$key]">
-    <md-icon>info</md-icon>
-    <span>Details</span>
-  </button>
     <button md-menu-item [routerLink]="['/edit', recipe.$key]">
-    <md-icon>edit</md-icon>
-    <span>Edit</span>
-  </button>
+      <md-icon>edit</md-icon>
+      <span>Edit</span>
+    </button>
     <button md-menu-item>
-    <md-icon>delete</md-icon>
-    <span>Delete</span>
-  </button>
+      <md-icon>delete</md-icon>
+      <span>Delete</span>
+    </button>
 </md-menu>

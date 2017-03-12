@@ -1,4 +1,5 @@
-<div>
-    <dmg-recipe-thumb *ngFor="let recipe of recipes | async" [recipe]="recipe"></dmg-recipe-thumb>
+<div *ngFor="let recipe of recipes | async; let i = index;">
+    <dmg-recipe-thumb *ngIf="!isCardOpen[i]" [(cardState)]="isCardOpen[i]" [recipe]="recipe"></dmg-recipe-thumb>
+    <dmg-recipe-detail *ngIf="isCardOpen[i]" [(cardState)]="isCardOpen[i]" [recipe]="recipe"></dmg-recipe-detail>
 </div>
 <dmg-fab></dmg-fab>

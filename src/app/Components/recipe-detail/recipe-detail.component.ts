@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { MdMenuTrigger } from '@angular/material';
+import { RecipeService } from '../../Services/recipe.service';
+import { Recipe } from '../../Models/recipe.model';
 
 @Component({
   selector: 'dmg-recipe-detail',
@@ -10,15 +12,24 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 })
 export class RecipeDetailComponent implements OnInit {
   private sub:any;
-  public recipe;
+  @Input() recipe: Recipe;
+  @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
+  @Input() cardState: Boolean;
+  @Output() cardStateChange: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
-  constructor(private route: ActivatedRoute, private af: AngularFire) {
-    this.sub = this.route.params.subscribe(params => {
-      let id = params['id'];
-      this.recipe = af.database.object(`/recipes/${id}`);
-    });
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService) {
+    
+  }
+
+  openMenu(e) {
+    e.stopPropagation();
+    this.trigger.openMenu();
   }
 
   ngOnInit() {
+  }
+
+  toggleCard() {
+    this.cardStateChange.emit(!this.cardState);
   }
 }

@@ -11,6 +11,7 @@ import 'hammerjs';
 import { routing } from './app.routes';
 
 import { RecipeService } from './Services/recipe.service';
+import { ListStateService } from './Services/list-state.service';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyC4P9384NMz23zahQbuuQq1Q87R2rKRfBo",
@@ -48,7 +49,10 @@ import { EditRecipeComponent } from './Components/edit-recipe/edit-recipe.compon
     FlexLayoutModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [RecipeService],
+  providers: [
+    RecipeService,
+    ListStateService
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

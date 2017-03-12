@@ -1,18 +1,37 @@
 <md-card>
-    <h2>{{ (recipe | async)?.name }}</h2>
+    <div (click)="toggleCard()" class="card-header" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutWrap="nowrap">
+        <span class="recipe-name">{{ recipe?.name }}</span>
+        <button md-icon-button [mdMenuTriggerFor]="menu" (click)="openMenu($event)">
+        <md-icon>more_vert</md-icon>
+        </button>
+    </div>
     <md-card-content>
         <h3>Ingredients</h3>
-        <ul *ngFor="let ingredient of (recipe | async)?.ingredients">
+        <ul *ngFor="let ingredient of recipe?.ingredients">
             <li>{{ ingredient }}</li>
         </ul>
         <div>
             <h3>Directions</h3>
-            {{ (recipe | async)?.direction }}
+            {{ recipe?.direction }}
         </div>
-        <button md-icon-button class="close" [routerLink]="['/']"><md-icon>close</md-icon></button>
+        <div fxLayout="row">
+            <h3 fxFlex="50%">Prep Time: {{ recipe?.time.prep}} mins</h3>
+            <h3 fxFlex="50%">Cook Time: {{ recipe?.time.cook}} mins</h3>
+        </div>
     </md-card-content>
     <md-card-actions>
         <button md-button>FAVORITE</button>
         <button md-button>SHARE</button>
     </md-card-actions>
 </md-card>
+
+<md-menu #menu="mdMenu">
+    <button md-menu-item [routerLink]="['/edit', recipe.$key]">
+        <md-icon>edit</md-icon>
+        <span>Edit</span>
+    </button>
+    <button md-menu-item>
+        <md-icon>delete</md-icon>
+        <span>Delete</span>
+    </button>
+</md-menu>

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MdMenuTrigger } from '@angular/material';
+import { Recipe } from '../../Models/recipe.model';
 
 @Component({
   selector: 'dmg-recipe-thumb',
@@ -7,7 +8,9 @@ import { MdMenuTrigger } from '@angular/material';
   styleUrls: ['./recipe-thumb.component.scss']
 })
 export class RecipeThumbComponent implements OnInit {
-  @Input() recipe;
+  @Input() recipe: Recipe;
+  @Input() cardState: Boolean;
+  @Output() cardStateChange: EventEmitter<Boolean> = new EventEmitter<Boolean>();
   @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
 
   constructor() { }
@@ -17,8 +20,11 @@ export class RecipeThumbComponent implements OnInit {
 
   openMenu(e) {
     e.stopPropagation();
-    console.log(this.recipe);
     this.trigger.openMenu();
+  }
+
+  toggleCard() {
+    this.cardStateChange.emit(!this.cardState);
   }
 
 }

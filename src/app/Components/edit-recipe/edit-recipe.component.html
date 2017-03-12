@@ -4,23 +4,23 @@
     </md-card-header>
     <md-card-content>
         <md-input-container class="full-width">
-            <input mdInput type="text" placeholder="Recipe Name" [(ngModel)]="recipeName" />
+            <input mdInput type="text" placeholder="Recipe Name" [ngModel]="recipe?.name" (ngModelChange)="recipe.name=$event" />
         </md-input-container>
         <md-input-container class="full-width">
-            <textarea mdInput placeholder="Ingredients (seperate ingredients on new lines)" rows="4" [(ngModel)]="ingredients"></textarea>
+            <textarea mdInput placeholder="Ingredients (seperate ingredients on new lines)" rows="4" [ngModel]="recipe?.ingredients.join('\n')" (ngModelChange)="recipe.ingredients=$event.split('\n')"></textarea>
         </md-input-container>
         <md-input-container class="full-width">
-            <textarea mdInput placeholder="Directions" rows="4" [(ngModel)]="directions"></textarea>
+            <textarea mdInput placeholder="Directions" rows="4" [ngModel]="recipe?.direction" (ngModelChange)="recipe.direction=$event"></textarea>
         </md-input-container>
         <div fxLayout="row">
             <md-input-container fxFlex="33%">
-                <input mdInput type="number" placeholder="Serving Size" [(ngModel)]="serving">
+                <input mdInput type="number" placeholder="Serving Size" [ngModel]="recipe?.serves" (ngModelChange)="recipe.serves=$event">
             </md-input-container>
             <md-input-container fxFlex="33%">
-                <input mdInput type="number" placeholder="Prep Time" [(ngModel)]="prepTime">
+                <input mdInput type="number" placeholder="Prep Time" [ngModel]="recipe?.time.prep" (ngModelChange)="recipe.time.prep=$event">
             </md-input-container>
             <md-input-container fxFlex="33%">
-                <input mdInput type="number" placeholder="Cook Time" [(ngModel)]="cookTime">
+                <input mdInput type="number" placeholder="Cook Time" [ngModel]="recipe?.time.cook" (ngModelChange)="recipe.time.cook=$event">
             </md-input-container>
         </div>
     </md-card-content>
